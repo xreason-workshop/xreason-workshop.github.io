@@ -1,0 +1,244 @@
+/* Reset & base */
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: #f5f7fa;
+    color: #222;
+}
+
+/* Layout */
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.authors {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.institutes {
+    font-size: 1rem;
+    color: #777;
+}
+
+/* Section */
+h2 {
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 8px;
+    margin-bottom: 25px;
+}
+
+/* =========================
+   Navbar
+========================= */
+
+/* Navbar container */
+.navbar {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+/* Button style */
+.nav-btn {
+    padding: 8px 16px;
+    border-radius: 999px;            /* pill shape */
+    border: 3px solid #ccc;
+    background: #f0f2f5;
+    color: #333;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.1);
+}
+
+/* Hover effect */
+.nav-btn:hover {
+    background: #e4e7eb;
+    border-color: #bbb;
+}
+
+/* Active page */
+.nav-btn.active {
+    background: #a36986;
+    color: white;
+    border-color: #75485e;
+}
+
+/* =========================
+   Sticky Model Navbar
+========================= */
+
+/* Sticky model nav */
+.model-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+
+    padding: 10px 0;
+    margin-bottom: 20px;
+
+    background: #2f3136;
+    border-bottom: 1px solid #444;
+}
+
+/* Buttons */
+.model-nav a {
+    padding: 2px 12px;
+    border-radius: 999px;
+
+    border: 2px solid #666;
+    background: #3a3d42;
+
+    text-decoration: none;
+    color: #e6e6e6;
+    font-size: 1rem;
+
+    transition: all 0.15s ease;
+}
+
+/* Hover */
+.model-nav a:hover {
+    background: #4a4e54;
+    border-color: #888;
+}
+
+/* Label */
+.model-nav-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #dddddd;
+    margin-right: 6px;
+    align-self: center;
+    white-space: nowrap;
+}
+
+/* Prevent anchor overlap */
+.model-name {
+    scroll-margin-top: 80px;
+}
+/* =========================
+   Example block
+========================= */
+.example {
+    margin-bottom: 30px;
+}
+
+.model-block {
+    margin-bottom: 60px;
+}
+
+.model-name {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Meta block with icon */
+.meta {
+    display: flex;
+    align-items: stretch; /* key: makes icon match text height */
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+/* Icon image */
+.icon-img {
+    height: auto;
+    width: auto;
+    max-height: 75px;
+    object-fit: contain;
+}
+
+/* Text next to icon */
+.meta-text {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.4;
+}
+
+/* =========================
+   Video
+========================= */
+
+/* Video layout */
+.video-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.video-card {
+    position: relative;
+    flex: 1;
+    min-width: 280px;
+}
+
+/* Video styling */
+video {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background: black;
+}
+
+/* Overlay label */
+.label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 4px 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: black;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 6px;
+}
+
+/* Responsive tweak */
+@media (max-width: 700px) {
+    .video-row {
+        flex-direction: column;
+    }
+}
+
+/* =========================
+   OOD html layout
+========================= */
+.ood-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.ood-card {
+    flex: 1;
+    min-width: 280px;
+}
+
+.prompt {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: #444;
+}
