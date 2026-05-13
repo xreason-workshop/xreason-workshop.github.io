@@ -414,7 +414,7 @@ h2 {
 
 .date-card {
   position: relative;
-  min-height: 132px;
+  min-height: 120px;
   border: 0;
   border-radius: 0;
   padding: 18px;
@@ -748,7 +748,7 @@ const navItems = [
 
 const facts = [
   ['Conference', 'ECCV 2026 Workshop'],
-  ['Date', 'September 8/9, 2026'],
+  ['Date', 'September 8, 2026'],
   ['Location', 'Malmö, Sweden'],
   ['Format', 'Full-day workshop'],
 ];
@@ -769,6 +769,9 @@ const dates = [
   ['Camera-ready deadline', 'August 26, 2026', 'Non-archival workshop papers'],
   ['Workshop date', 'September 8, 2026', 'During ECCV workshops and tutorials'],
 ];
+
+const openReviewSubmissionUrl =
+  'https://openreview.net/group?id=thecvf.com/ECCV/2026/Workshop/X-Reason&referrer=%5BHomepage%5D(%2F)#tab-recent-activity';
 
 const schedule = [
   ['09:00', '09:30', 'Coffee and breakfast'],
@@ -865,7 +868,7 @@ function App() {
               <div className="hero-conference">
                 <div>
                   <span>ECCV 2026 Workshop</span>
-                  <strong>September 8 or 9, 2026 · Malmö, Sweden</strong>
+                  <strong>September 8, 2026 · Malmö, Sweden</strong>
                 </div>
               </div>
               <h1>Visual Perception and Reasoning in the Interactable World</h1>
@@ -942,7 +945,6 @@ function App() {
                   <article className="date-card" key={label}>
                     <span>{label}</span>
                     <strong>{date}</strong>
-                    <p>{detail}</p>
                   </article>
                 ))}
               </div>
@@ -968,7 +970,14 @@ function App() {
               </p>
               <div className="submission-box">
                 <strong>Submission site</strong>
-                <span>Coming soon</span>
+                <a
+                  className="button primary"
+                  href={openReviewSubmissionUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Submit on OpenReview
+                </a>
               </div>
             </div>
           </div>
@@ -978,7 +987,7 @@ function App() {
           <div className="container">
             <div className="section-heading">
               <p className="eyebrow">Program</p>
-              <h2>Tentative Full-Day Schedule</h2>
+              <h2>Tentative Schedule</h2>
             </div>
             <div className="schedule-wrap">
               <table>
