@@ -444,6 +444,18 @@ h2 {
   line-height: 1.45;
 }
 
+.date-original {
+  margin: 10px 0 0;
+  color: var(--muted-ink);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: line-through;
+}
+
+.date-original + strong {
+  margin-top: 4px;
+}
+
 .submission-box {
   display: flex;
   align-items: center;
@@ -764,7 +776,7 @@ const topics = [
 ];
 
 const dates = [
-  ['Paper submission deadline', 'July 31, 2026', '23:59 Anywhere on Earth'],
+  ['Paper submission deadline', 'August 7, 2026', '23:59 Anywhere on Earth', 'July 31, 2026'],
   ['Author notification', 'August 19, 2026', 'Double-blind review'],
   ['Camera-ready deadline', 'August 26, 2026', 'Non-archival workshop papers'],
   ['Workshop date', 'September 8, 2026', 'During ECCV workshops and tutorials'],
@@ -801,7 +813,7 @@ const speakers = [
   ['Boyi Li', 'NVIDIA & UC Berkeley', 'Confirmed', 'https://sites.google.com/site/boyilics/'],
   ['Jiajun Wu', 'Stanford University', 'Confirmed', 'https://jiajunwu.com/'],
   ['Fu-En Yang', 'NVIDIA', 'Confirmed', 'https://fuenyang1127.github.io/'],
-  ['Serge Belongie', 'University of Copenhagen', 'Tentative', 'https://serge.belongie.com/'],
+  ['Serge Belongie', 'University of Copenhagen', 'Confirmed', 'https://serge.belongie.com/'],
 ];
 
 const organizers = [
@@ -941,9 +953,10 @@ function App() {
             </div>
             <div className="date-timeline">
               <div className="date-grid">
-                {dates.map(([label, date, detail]) => (
+                {dates.map(([label, date, detail, originalDate]) => (
                   <article className="date-card" key={label}>
                     <span>{label}</span>
+                    {originalDate && <strong className="date-original">{originalDate}</strong>}
                     <strong>{date}</strong>
                   </article>
                 ))}
@@ -1017,13 +1030,13 @@ function App() {
           <div className="container">
             <div className="section-heading">
               <p className="eyebrow">Invited Speakers</p>
-              <h2>Confirmed and Tentative Speakers</h2>
+              <h2>Confirmed Speakers</h2>
             </div>
             <div className="person-grid">
               {speakers.map(([name, affiliation, status, url]) => (
                 <a className="person-card" href={url} target="_blank" rel="noreferrer" key={name}>
                   <ProfilePhoto name={name} />
-                  <span className="status">{status}</span>
+                  {/* <span className="status">{status}</span> */}
                   <strong>{name}</strong>
                   <p>{affiliation}</p>
                 </a>
