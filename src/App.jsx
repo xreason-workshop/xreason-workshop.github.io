@@ -776,7 +776,7 @@ const topics = [
 ];
 
 const dates = [
-  ['Paper submission deadline', 'August 7, 2026', '23:59 Anywhere on Earth', 'July 31, 2026'],
+  ['Paper submission deadline', 'August 4, 2026', '12:00 PM AOE', 'July 31, 2026'],
   ['Author notification', 'August 19, 2026', 'Double-blind review'],
   ['Camera-ready deadline', 'August 26, 2026', 'Non-archival workshop papers'],
   ['Workshop date', 'September 8, 2026', 'During ECCV workshops and tutorials'],
