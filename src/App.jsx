@@ -1,6 +1,5 @@
 import malmoHeroUrl from './assets/malmo-harbor.jpg';
-import marcoPavonePhoto from './assets/profile pics/Marco Pavone.jpeg';
-import xiaolongWangPhoto from './assets/profile pics/Xiaolong Wang.jpg';
+import shaYiPhoto from './assets/profile pics/Sha Yi.png';
 import bharathHariharanPhoto from './assets/profile pics/Bharath Hariharan.jpg';
 import vincentSitzmannPhoto from './assets/profile pics/Vincent Sitzmann.jpg';
 import boyiLiPhoto from './assets/profile pics/Boyi Li.png';
@@ -565,6 +564,15 @@ tbody tr:nth-child(even) {
   object-position: center;
 }
 
+.profile-photo-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--ink-soft, #5b6472);
+}
+
 .person-card strong {
   display: block;
   font-size: 1.2rem;
@@ -778,7 +786,7 @@ const topics = [
 const dates = [
   ['Paper submission deadline', 'August 4, 2026', '12:00 PM AOE', 'July 31, 2026'],
   ['Author notification', 'August 19, 2026', 'Double-blind review'],
-  ['Camera-ready deadline', 'August 26, 2026', 'Non-archival workshop papers'],
+  ['Camera-ready deadline', 'August 30, 2026', 'Non-archival workshop papers', 'August 26, 2026'],
   ['Workshop date', 'September 8, 2026', 'During ECCV workshops and tutorials'],
 ];
 
@@ -786,34 +794,31 @@ const openReviewSubmissionUrl =
   'https://openreview.net/group?id=thecvf.com/ECCV/2026/Workshop/X-Reason&referrer=%5BHomepage%5D(%2F)#tab-recent-activity';
 
 const schedule = [
-  ['09:00', '09:30', 'Coffee and breakfast'],
-  ['09:30', '09:40', 'Opening remarks'],
-  ['09:40', '10:20', 'Invited talk 1 with Q&A'],
-  ['10:20', '11:00', 'Invited talk 2 with Q&A'],
-  ['11:00', '11:20', 'Oral presentation 1'],
-  ['11:20', '11:40', 'Coffee break'],
-  ['11:40', '12:20', 'Invited talk 3 with Q&A'],
-  ['12:20', '12:40', 'Oral presentation 2'],
-  ['12:40', '13:40', 'Lunch break'],
-  ['13:40', '14:30', 'Poster session'],
-  ['14:30', '15:10', 'Invited talk 4 with Q&A'],
-  ['15:10', '15:40', 'Best paper awards oral presentation'],
-  ['15:40', '16:20', 'Invited talk 5 with Q&A'],
-  ['16:20', '16:50', 'Coffee break'],
-  ['16:50', '17:30', 'Invited talk 6 with Q&A'],
-  ['17:30', '18:10', 'Invited talk 7 with Q&A'],
-  ['18:10', '18:15', 'Closing remarks'],
+  ['08:50', '09:00', 'Opening remarks'],
+  ['09:00', '09:40', 'Keynote: Prof. Sha Yi'],
+  ['09:40', '10:00', 'Oral session 1'],
+  ['10:00', '11:00', 'AM break'],
+  ['11:00', '11:40', 'Keynote: Dr. Fu-En Yang'],
+  ['11:40', '12:00', 'Oral session 2'],
+  ['12:00', '13:45', 'Lunch'],
+  ['13:45', '14:20', 'Poster session'],
+  ['14:20', '15:00', 'Keynote: Prof. Serge Belongie'],
+  ['15:00', '15:40', 'Keynote: Prof. Bharath Hariharan'],
+  ['15:40', '16:00', 'PM break'],
+  ['16:00', '16:40', 'Keynote: Prof. Vincent Sitzmann'],
+  ['16:40', '17:20', 'Keynote: Dr. Boyi Li'],
+  ['17:20', '18:00', 'Keynote: Dr. Jiajun Wu'],
+  ['18:00', '18:10', 'Closing remarks'],
 ];
 
 const speakers = [
-  ['Marco Pavone', 'Stanford University', 'Confirmed', 'https://web.stanford.edu/~pavone/'],
-  ['Xiaolong Wang', 'UC San Diego & ARI', 'Confirmed', 'https://xiaolonw.github.io/'],
+  ['Sha Yi', 'Physical Intelligence', 'Confirmed', 'https://yswhynot.github.io/'],
+  ['Fu-En Yang', 'NVIDIA', 'Confirmed', 'https://fuenyang1127.github.io/'],
+  ['Serge Belongie', 'University of Copenhagen', 'Confirmed', 'https://serge.belongie.com/'],
   ['Bharath Hariharan', 'Cornell University', 'Confirmed', 'https://www.cs.cornell.edu/~bharathh/'],
   ['Vincent Sitzmann', 'MIT', 'Confirmed', 'https://www.vincentsitzmann.com/'],
   ['Boyi Li', 'NVIDIA & UC Berkeley', 'Confirmed', 'https://sites.google.com/site/boyilics/'],
   ['Jiajun Wu', 'Stanford University', 'Confirmed', 'https://jiajunwu.com/'],
-  ['Fu-En Yang', 'NVIDIA', 'Confirmed', 'https://fuenyang1127.github.io/'],
-  ['Serge Belongie', 'University of Copenhagen', 'Confirmed', 'https://serge.belongie.com/'],
 ];
 
 const organizers = [
@@ -828,8 +833,7 @@ const organizers = [
 ];
 
 const profilePhotos = {
-  'Marco Pavone': marcoPavonePhoto,
-  'Xiaolong Wang': xiaolongWangPhoto,
+  'Sha Yi': shaYiPhoto,
   'Bharath Hariharan': bharathHariharanPhoto,
   'Vincent Sitzmann': vincentSitzmannPhoto,
   'Boyi Li': boyiLiPhoto,
@@ -847,10 +851,24 @@ const profilePhotos = {
 };
 
 function ProfilePhoto({ name }) {
+  const src = profilePhotos[name];
+  if (!src) {
+    const initials = name
+      .split(' ')
+      .map((part) => part[0])
+      .join('')
+      .slice(0, 2)
+      .toUpperCase();
+    return (
+      <div className="profile-photo profile-photo-placeholder" role="img" aria-label={`${name} portrait`}>
+        {initials}
+      </div>
+    );
+  }
   return (
     <img
       className="profile-photo"
-      src={profilePhotos[name]}
+      src={src}
       alt={`${name} portrait`}
       loading="lazy"
     />
@@ -1000,11 +1018,11 @@ function App() {
           <div className="container">
             <div className="section-heading">
               <p className="eyebrow">Program</p>
-              <h2>Tentative Schedule</h2>
+              <h2>Final Schedule</h2>
             </div>
             <div className="schedule-wrap">
               <table>
-                <caption>All times are tentative and will be updated after the workshop date is finalized.</caption>
+                <caption>All times are local Malmö time (CEST / UTC+2).</caption>
                 <thead>
                   <tr>
                     <th scope="col">Start</th>

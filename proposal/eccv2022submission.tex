@@ -1,0 +1,418 @@
+% updated Jan 2026 by Dim Papadopoulos
+% updated September 2023 by Alessio Del Bue
+% updated April 2002 by Antje Endemann
+% Based on CVPR 07 and LNCS, with modifications by DAF, AZ and elle, 2008 and AA, 2010, and CC, 2011; TT, 2014; AAS, 2016; AAS, 2020; TH, 2022
+
+\documentclass[runningheads]{llncs}
+\usepackage{graphicx}
+% DO NOT USE \usepackage{times}, it will be removed by typesetters
+%\usepackage{times}
+
+\usepackage{tikz}
+\usepackage{comment,verbatim}
+\usepackage{amsmath,amssymb} % define this before the line numbering.
+\usepackage{booktabs}
+\usepackage{color}
+\usepackage{fontawesome5}
+\usepackage{hyperref}
+
+% The "axessiblity" package can be found at: https://ctan.org/pkg/axessibility?lang=en
+\usepackage[accsupp]{axessibility}  % Improves PDF readability for those with disabilities.
+
+
+% INITIAL SUBMISSION - The following two lines are NOT commented
+% CAMERA READY - Comment OUT the following two lines
+\usepackage{ruler}
+\usepackage[width=122mm,left=12mm,paperwidth=146mm,height=193mm,top=12mm,paperheight=217mm]{geometry}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+% instructions
+\def\c#1{\textcolor{gray}{#1}}
+% indicates parts to complete
+\def\x{\textcolor{red}{xxx}}
+\newcommand{\todo}[1]{{\color{red}#1}}
+\definecolor{emailblue}{HTML}{2ea4bf}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+
+\begin{document}
+% \renewcommand\thelinenumber{\color[rgb]{0.2,0.5,0.8}\normalfont\sffamily\scriptsize\arabic{linenumber}\color[rgb]{0,0,0}}
+% \renewcommand\makeLineNumber {\hss\thelinenumber\ \hspace{6mm} \rlap{\hskip\textwidth\ \hspace{6.5mm}\thelinenumber}}
+% \linenumbers
+\pagestyle{headings}
+\mainmatter
+%\def\ECCVSubNumber{100}  % Insert your submission number here
+
+% \title{ECCV 2026 the First Workshop on Perceptual and Embodied Reasoning} % Replace with your title
+\title{First Workshop on Visual Perception and Reasoning in the Interactable World} % Replace with your title
+
+
+% INITIAL SUBMISSION 
+%\begin{comment}
+% \titlerunning{ECCV 2026 the First Workshop on Perceptual and Embodied Reasoning} 
+\titlerunning{}
+
+\author{Katie Z. Luo\inst{1}\textbf{(primary contact)} \and
+Congyue Deng\inst{2} \and
+Haoran Geng\inst{3} \and
+Lena Wild\inst{4} \and
+Milan Ganai\inst{1} \and
+Vitor Guizilini\inst{5} \and
+Jitendra Malik\inst{3} \and
+Leonidas Guibas\inst{1}
+}
+%
+\authorrunning{K. Luo, C. Deng, et al.} 
+% First names are abbreviated in the running head.
+% If there are more than two authors, 'et al.' is used.
+%
+\institute{Stanford University, \email{\color{emailblue}\{katieluo,mganai,guibas\}@stanford.edu} \and
+Massachusetts Institute of Technology, \email{\color{emailblue} congyued@mit.edu} \and
+University of California, Berkeley, \email{\color{emailblue} \{ghr,malik\}@berkeley.edu} \and
+KTH Royal Institute of Technology, \email{\color{emailblue} lwild@kth.se} \and
+Toyota Research Institute, \email{\color{emailblue} vitor.guizilini@tri.global}
+}
+%\end{comment}
+%******************
+
+
+
+%\author{Anonymous ECCV submission}
+%\institute{Paper ID \ECCVSubNumber}
+%\end{comment}
+%******************
+
+\titlerunning{Visual Perception and Reasoning in the Interactable World}
+% CAMERA READY SUBMISSION
+\begin{comment}
+\titlerunning{Abbreviated paper title}
+% If the paper title is too long for the running head, you can set
+% an abbreviated paper title here
+%
+\end{comment}
+%******************
+\maketitle
+
+\vspace{-1em}
+
+\keywords{Spatial Reasoning, Active Perceptual Understanding, Embodied Systems, Embodied Reasoning, Robotic Perception}
+
+\vspace{-1em}
+
+\section{Introduction}
+
+\vspace{-1em}
+As embodied AI systems increasingly operate in complex real-world environments, the role of perceptual understanding as a reasoning mechanism has become critical. This workshop aims to address the emerging intersection between computer vision \cite{radford2021learning,liu2024grounding,simeoni2025dinov3,carion2025sam,chen2025sam}, spatial reasoning~\cite{qi2017pointnet++,danesi2018puzzles}, and embodied intelligence~\cite{black2024pi-0}, examining how structured perceptual representations can enable more capable robotic systems.
+Recent advances demonstrate a paradigm shift: perception is not merely sensing, but a form of reasoning. Works such as language grounded embodied chains-of-thought \cite{saycan2022arxiv,Zawalski24-ecot,Chen25-ecot-lite,huang2025thinkact} show how structured reasoning over visual observations improves vision-language-action \cite{kim24openvla,black2024pi-0,bjorck2025gr00t,intelligence2025pi} model performance. Self-driving foundation models \cite{hwang2024emma,nvidia2025alpamayor1bridgingreasoningaction} reveal that explicitly enumerating critical spatial relationships and agent states enhances downstream decision-making. Works in System 1-2 embodied designs further suggest that deliberate planning over spatial reasoning—including distance estimation, metric representations, and scene graph structures—is crucial for task success \cite{posner2019robotsthinking,li2025system}. These spatial reasoning capabilities, which capture relational structures between objects, agents, and environments, represent a key bridge between fast perceptual inference (System 1) and deliberate planning (System 2). These developments suggest that the perception and embodied AI community must rethink how we design perceptual systems—not just to recognize, but to reason.
+
+This workshop addresses fundamental questions: What visual representations best support embodied reasoning? How should spatial relationships be structured to facilitate manipulation, navigation, and autonomous driving? What reasoning mechanisms over perceptual data translate to improved real-world performance? We seek to unite classical computer vision with modern embodied AI, exploring how scene understanding, 3D perception, and visual reasoning can be purposefully designed for real-world embodied tasks, with following subjects of interest:
+
+\vspace{-1.5em}
+
+\begin{itemize}
+    % \item 3D and relational spatial representations: scene graphs, metric estimation, and structured scene understanding
+    \item Actionable 3D and relational scene representations: scene graphs, metric estimation, and visual affordances
+    \item Perception as structured reasoning for vision-language-action models
+    \item Active perception and exploration for navigation and manipulation
+    \item Spatial reasoning in autonomous systems (driving, navigation, manipulation)
+    % \item Actionable scene representations: visual affordances for manipulation
+    \item Hybrid perceptual systems for reactive and deliberate spatial reasoning
+    \item Benchmarks and evaluation for embodied perceptual and spatial reasoning
+    \item Multi-modal fusion for embodied tasks (vision, language, proprioception)
+\end{itemize}
+% \begin{itemize}
+%     \item Spatial reasoning representations: scene graphs, distance estimation, \textit{etc.}
+%     % \item System 1-2 reasoning architectures for embodied agents
+%     \item Perception as structured reasoning for vision-language-action models
+%     \item Active perception for embodied systems
+%     % \item Chains of thought and multi-step reasoning over visual observations
+%     \item 3D scene understanding and relational spatial modeling for robotics
+%     \item Foundation models for autonomous driving with spatial reasoning
+%     \item Actionable scene representations: visual affordances for manipulation
+%     % \item Deliberate planning mechanisms over perceptual data
+%     % \item Object-centric and relational representations for embodied tasks
+%     % \item Fast-slow reasoning systems combining reactive perception with spatial planning
+%     \item Benchmarks and evaluation for embodied perceptual and spatial reasoning
+%     % \item Sim-to-real transfer of reasoning-enhanced perceptual systems
+%     \item Multi-modal fusion for embodied tasks (vision, language, proprioception)
+% \end{itemize}
+
+\vspace{-1em}
+
+\noindent
+\textbf{Relevance of Topic.}
+% \todo{
+% - Special requirement (max 2000 characters):
+% Description of the topics that will be covered and their relevance to the computer vision community
+% }
+The computer vision community has long pursued recognition, detection, and reconstruction 
+as ends in themselves. Yet as vision systems are increasingly deployed within embodied 
+agents—robots, autonomous vehicles, and interactive assistants—perception must serve 
+reasoning and action, not merely observation. This workshop addresses a timely shift: 
+from passive sensing to active structured reasoning that directly supports decision-making.
+The workshop aims to covers topics at the heart of this transition: 
+actionable 3D and relational 
+scene representations, structured reasoning 
+over visual observations, active perception and exploration, and hybrid perceptual systems 
+bridging reactive and deliberate reasoning. These topics further reflect the community's evolving 
+understanding of what robust embodied perception requires. Multi-modal fusion and 
+rigorous benchmarking round out the agenda, ensuring progress is grounded in 
+real-world evaluation.
+Collectively, these topics reflect a critical open problem for the computer vision 
+community: designing perceptual systems that are not only accurate, but reasoning-compatible 
+and actionable in real-world embodied settings.
+
+\vspace{-1.25em}
+
+\section{Invited Speakers}
+
+\vspace{-1.25em}
+\textbf{%
+\href{https://web.stanford.edu/~pavone/}
+{\textcolor{emailblue}{Marco Pavone}} (Stanford, confirmed)
+}%
+is an Associate Professor of Aeronautics and Astronautics at Stanford University, where he is the Director of the Autonomous Systems Laboratory and Co-Director of the Center for Automotive Research at Stanford. His research interests lie in the development of methodologies for the analysis, design, and control of autonomous systems, with an emphasis on self-driving cars and autonomous aerospace vehicles.
+
+\vspace{-0.5em}
+\textbf{%
+\href{https://xiaolonw.github.io/}
+{\textcolor{emailblue}{Xiaolong Wang}} (UCSD \& ARI, confirmed)
+}%
+is an Associate Professor at UC San Diego as well as the Co-founder of Assured Robot Intelligence (ARI). He is interested in representation learning through videos and physical robotic interaction data. By exploring diverse supervision signals from data, language, and common sense knowledge, he aims to generalize robots to interact effectively with a wide range of objects and environments in the real physical world.
+
+\vspace{-0.5em}
+\textbf{%
+\href{https://www.cs.cornell.edu/~bharathh/}
+{\textcolor{emailblue}{Bharath Hariharan}} (Cornell, confirmed)
+}%
+is an Associate Professor in Computer Science at Cornell University. He works on computer vision and machine learning, in particular on important problems that defy the ``Big Data'' label. He enjoys problems that require marrying advances in machine learning with insights from computer vision, geometry and domain-specific knowledge.
+
+\vspace{-0.5em}
+\textbf{%
+\href{https://www.vincentsitzmann.com/}
+{\textcolor{emailblue}{Vincent Sitzmann}} (MIT, confirmed)
+}%
+is an Assistant Professor at MIT where he leads the Scene Representation Group. His research goal is to build machines that learn to understand and interact with the world autonomously by building ``world models'' -- mental simulators that enable an agent to simulate what will happen next in their environment and as a consequence of their actions, a critical piece of AI and key in downstream applications in graphics, vision, and robotics.
+
+\vspace{-0.5em}
+\textbf{%
+\href{https://sites.google.com/site/boyilics/}
+{\textcolor{emailblue}{Boyi Li}} (NVIDIA \& Berkeley, confirmed)
+}%
+is a Research Scientist at NVIDIA Research and a Postdoc at UC Berkeley. Her research focuses on multimodality for embodied intelligence, developing generalizable algorithms, and creating interactive intelligent systems. Central to this work is reasoning, robotics, language models, and generative models. A key aspect involves aligning representations from diverse multimodal data including images, geometry, and more.
+
+\vspace{-0.5em}
+\textbf{%
+\href{https://jiajunwu.com/}
+{\textcolor{emailblue}{Jiajun Wu}} (Stanford, confirmed)
+}%
+is an Assistant Professor of Computer Science and, by courtesy, of Psychology at Stanford University.
+His research group studies physical scene understanding -- building machines that see, reason about, and interact with the physical world.
+He aims to answer these fundamental questions, drawing inspiration from nature, such the physical world itself, and from human cognition.
+
+\vspace{-0.5em}
+\textbf{%
+\href{https://fuenyang1127.github.io/}
+{\textcolor{emailblue}{Fu-En Yang}} (Nvidia, confirmed)
+}%
+is a Research Scientist at NVIDIA, researching Adaptive Physical Intelligence, with a focus on developing efficient, adaptive AI systems for vision-language-action models (VLA), world modeling, embodied reasoning, and physical AI.
+
+\vspace{-0.5em}
+\textbf{%
+\href{https://serge.belongie.com/}
+{\textcolor{emailblue}{Serge Belongie}} (DKU, tentatively confirmed)
+}%
+is a professor of Computer Science at the University of Copenhagen, where he also serves as the head of the Pioneer Centre for Artificial Intelligence (P1). His research interests include computer vision, machine learning, and human-in-the-loop computing. 
+He is also a member of the Royal Danish Academy of Sciences and Letters.
+% He also serves on the board of the European Laboratory for Learning and Intelligent Systems (ELLIS).
+
+\vspace{-1.25em}
+\section{Organizers}
+
+\vspace{-1.25em}
+\textbf{%
+\href{https://www.cs.cornell.edu/~katieluo/}
+{\textcolor{emailblue}{Katie Z Luo}} (Stanford)
+}% 
+is a Postdoctoral Researcher at Stanford University, working with Marco Pavone. Her research interest lies in multimodal sensory inputs to enhance visual understanding of the world. 
+
+\vspace{-0.5em}
+
+\textbf{%
+\href{https://congyue-deng.github.io/}
+{\textcolor{emailblue}{Congyue Deng}} (MIT)
+}%
+is a postdoctoral fellow at MIT, working with William T. Freeman and Marin Soljačić. Her research interests include 3D computer vision, geometric deep learning, and physical representation learning.
+
+\vspace{-0.5em}
+\textbf{%
+\href{https://geng-haoran.github.io/}
+{\textcolor{emailblue}{Haoran Geng}} (Berkeley)
+}%
+is a Ph.D. student at Berkeley AI Research (BAIR), advised by Prof. Pieter Abbeel and Jitendra Malik. His research interest is broadly in Robotics and 3D Computer Vision, with particular interests in generalizable object perception, understanding, and manipulation.
+
+\vspace{-0.5em}
+\textbf{%
+\href{https://lwildd.github.io/}
+{\textcolor{emailblue}{Lena Wild}} (KTH)
+}%
+% \noindent\textbf{Lena Wild} 
+is an industrially employed PhD student at TRATON Group and the Division of Robotics, Perception and Learning at KTH Royal Institute of Technology. Her research focuses on integration of prior knowledge in end-to-end explainable deep learning systems and map-centered reasoning.
+
+\vspace{-0.5em}
+\textbf{%
+\href{https://milanganai.github.io/}
+{\textcolor{emailblue}{Milan Ganai}} (Stanford)
+}%
+% \noindent\textbf{Milan Ganai} 
+is a PhD student at Stanford in the Department of Computer Science advised by Prof. Marco Pavone and Clark Barrett. His research interests lie in safely scaling OOD generalization in robotics by developing data-efficient frameworks for physical AI systems. 
+% Prior to Stanford, he received his BS in Computer Science, summa cum laude with highest distinction, and MS in Computer Science at UC San Diego, where he was a Jacobs School Scholar and Regents Scholar. 
+% He has performed research in the intersection of control and reinforcement learning under Professors Sicun Gao and Sylvia Herbert and interned at Amazon Web Services.
+
+\vspace{-0.5em}
+\textbf{%
+\href{https://vitorguizilini.github.io/}
+{\textcolor{emailblue}{Vitor Guizilini}} (TRI)
+}%
+% \noindent\textbf{Milan Ganai} 
+is a Staff Research Scientist at the Toyota Research Institute, where he leads the Geometric 3D Vision research direction, including includes self-supervised learning, depth estimation, optical flow, scene flow, keypoints, multi-view geometry, camera calibration, and so forth.
+
+\vspace{-0.5em}
+\textbf{%
+\href{https://people.eecs.berkeley.edu/~malik/}
+{\textcolor{emailblue}{Jitendra Malik}} (Berkeley)
+}%
+% \noindent\textbf{Jitendra Malik} 
+is a Professor at the University of California at Berkeley, where he is currently the Arthur J. Chick Professor in the Department of Electrical Engineering and Computer Sciences.
+His research group works on computer vision, robotics and machine learning. His group has also contributed to computational modeling of human vision, computer graphics and more.
+%His publications have received twelve best paper awards, including six test of time awards - the Longuet-Higgins Prize for papers published at CVPR (three times) and the Helmholtz Prize for papers published at ICCV (three times).
+
+\vspace{-0.5em}
+\textbf{%
+\href{https://geometry.stanford.edu/?member=guibas}
+{\textcolor{emailblue}{Leonidas Guibas}} (Stanford)
+}%
+% \noindent\textbf{Leonidas Guibas} 
+heads the Geometric Computation group in the Computer Science Department of Stanford University. His interests span computational geometry, geometric modeling, computer graphics, computer vision, sensor networks, robotics, and discrete algorithms --- all areas in which he has published and lectured extensively. 
+
+\vspace{-0.5em}
+\noindent
+\textbf{Relevance of Organizers.}
+All members of the organizing team are active researchers working in computer vision and robotics, aligning closely with the core themes of this workshop. Our organizing committee has extensive experience in organizing and contributing to workshops in AI and/or robotics workshops, where most organizers have recently served as organizers or invited speakers including NeurIPS, ICLR, CVPR, ECCV, CoRL, and ICRA (\textit{e.g.}, \href{https://genbot-workshop.github.io/}{\color{emailblue}GenBot}, \href{https://geo-lme.github.io/}{\color{emailblue}GeoLME}, \href{https://ind3dworkshop.github.io/cvpr2025/}{\color{emailblue}Ind3D}, \href{https://4dvisionworkshop.github.io/}{\color{emailblue}4DV}, etc.). Concretely, the organizers have adequate experience in coordinating with the invited speakers, setting up the paper review process, publicity and advertisement, coordinating in-person and online setups, etc.
+
+\vspace{-1.25em}
+\section{Tentative Program}
+
+\vspace{-1.25em}
+% \subsection*{Schedule}
+%We propose a full-day format, including talks by invited speakers, oral presentations, and poster presentations. The projected duration of the event is approximately 8 hours, including 1 hour and 50 minutes for coffee breaks and lunch.
+
+\begin{table}[h]
+    \scriptsize
+    \centering
+
+    \vspace{-2.15em}
+    \begin{tabular}{c|c|l}
+            
+            \toprule
+       Start Time & End Time & Event \\
+        \midrule    
+         09:00&09:30& Coffee \& Breakfast\\
+         09:30&09:40 & Opening remarks\\
+         09:40&10:20&  Invited talk \#1 – with Q\&A session\\
+         10:20&11:00& Invited talk \#2 – with Q\&A session \\
+         11:00&11:20& Oral Presentation \#1 \\
+         11:20&11:40& Coffee break\\
+         11:40&12:20 & Invited talk \#3 – with Q\&A session\\
+         12:20&12:40& Oral Presentation \#2\\
+         12:40&13:40& Lunch break\\
+         13:40&14:30& Poster Section\\
+         14:30&15:10 &Invited talk \#4 – with Q\&A session\\
+         15:10&15:40& Best paper awards oral presentation\\
+         15:40&16:20 & Invited talk \#5 – with Q\&A session\\
+         16:20&16:50& Coffee break\\
+         16:50&17:30 & Invited talk \#6 – with Q\&A session\\
+         17:30&18:10 & Invited talk \#7 – with Q\&A session\\
+         18:10&18:15& Closing remarks\\
+     \bottomrule
+    \end{tabular}
+    % \caption{Caption}
+    \label{tab:schedule}
+    \vspace{-1.7em}
+\end{table}
+
+\textbf{Logistics.} 
+% The primary contact is Katie Luo (\textcolor{emailblue}{katieluo@stanford.edu}). 
+A full day workshop with invited talks and paper talks/posters, 
+The anticipated audience size is 50--200 attendees. 
+We request 20 poster boards. 
+Papers will not be published in proceedings. There are no special requests.
+
+% \begin{table}[ht]
+%     \scriptsize
+%     \centering
+%     \begin{tabular}{ll}
+%     \hline
+%         Primary contact & Katie Luo (\textcolor{emailblue}{katieluo@stanford.edu}) \\
+%         Half or full day & Full day (invited talks, paper talks/posters) \\
+%         Anticipated audience size & Medium (100-300 attendees) \\
+%         Requested number of poster boards~~ & 20 \\
+%         Papers published in proceedings? & No \\
+%         Special requests & None \\
+%     \hline
+%     \end{tabular}
+% \end{table}
+
+\textbf{Paper submissions and review.}
+We welcome 2 types of contributions: 
+4-page extended abstracts, 8-page non-archival workshop publications. The program committee, consisting of all organizers, will review the papers in a double-blind procedure. Submitted papers will follow the standard ECCV 2026 template.
+The tentative paper timeline will be as follows: workshop paper submission deadline: July 31, 2026 (23:59 AOE); notification to authors: August 19, 2026; camera-ready deadline: August 26, 2026; workshop date: September 8 or 9, 2026. 
+
+\vspace{-1em}
+\section{Relationship to Previous Workshops}
+
+\vspace{-1.5em}
+% \todo{
+% - Description of how this proposal relates to previous workshops at CVPR, ICCV, ECCV (be as specific as possible).
+% }
+The most relevant past and upcoming workshops in the area are listed below:
+
+\vspace{-.75em}
+\begin{itemize}
+\item \textbf{CVPR'26:} \href{https://embodied-reasoning.github.io/}{ERA}, \href{https://activis-workshop.github.io/}{Bridging Vision, Language, and Action}, \href{https://foundation-models-meet-embodied-agents.github.io/cvpr2026/}{Foundation Models Meet Embodied Agents}, \href{https://3d-llm-vla.github.io/}{Bridging Language, Vision and Action in 3D Environments}, \href{https://musi-workshop.github.io/}{MUSI, 2nd ed.}.
+\item \textbf{ICCV'25:} \href{https://agent-intelligence.github.io/agent-intelligence/}{MMRAgI}, \href{https://esr-2025.github.io/}{ESR}, \href{https://mars2workshop.github.io/iccv2025/}{MARS2}, \href{https://musi-workshop.github.io/}{MUSI (1st ed.)}.
+\item \textbf{ICLR'26:} \href{https://sites.google.com/ucsd.edu/efficient-spatial-reasoning/}{Efficient Spatial Reasoning}.
+\end{itemize}
+
+\vspace{-1em}
+\noindent
+Our workshop is complementary to these related efforts but occupies a distinct niche. Existing workshops broadly fall into two camps: those focused on spatial and multimodal representation (MUSI, Embodied Spatial Reasoning, Efficient Spatial Reasoning), and those focused on embodied action pipelines and foundation models (Embodied Reasoning in Action, Foundation Models Meet Embodied Agents, Bridging Language, Vision and Action). Our workshop bridges these two camps by treating active visual perception as the reasoning mechanism that connects structured scene understanding to embodied decision-making—spanning manipulation, navigation, and autonomous driving. In doing so, we engage the community on a central question: how structured visual representations can actively drive reasoning and decision-making in embodied systems, positioning perception as a first-class reasoning mechanism rather than a preprocessing step.
+% \noindent
+% Our workshop is complementary to, but distinct from, these related efforts. Workshops such as Embodied Spatial Reasoning and MUSI focus primarily on spatial understanding as a representational problem—how models encode 3D structure and spatial relationships. Our workshop, \textbf{Visual Perception and Reasoning in the Interactable World}, goes further by asking how structured visual representations actively drive reasoning and decision-making in embodied systems, treating perception itself as a reasoning mechanism rather than a preprocessing step.
+% Compared to workshops on multimodal reasoning and slow thinking (ICCV'25) or System 1-2 architectures, our scope is grounded specifically in \textit{visual} and \textit{active} perception—examining how scene understanding, spatial representations, and visual chains-of-thought translate directly to manipulation, navigation, and autonomous driving performance. While Foundation Models Meet Embodied Agents and Embodied Reasoning in Action emphasize planning and action pipelines, we focus on the perceptual front-end: what visual representations need to look like to make downstream embodied reasoning tractable.
+% Efficient Spatial Reasoning (ICLR'26) shares an interest in structured spatial understanding but prioritizes computational efficiency over the embodied grounding that is central to our workshop. Similarly, Bridging Language, Vision and Action in 3D Environments focuses on 3D-language integration, whereas our workshop spans the full perceptual reasoning stack—from active perception and scene graphs to visual affordances and multi-modal fusion—across a broader range of embodied domains.
+
+
+\vspace{-1em}
+\section{Diversity}
+\vspace{-1.5em}
+
+We are committed to embracing and fostering diversity with our organizing team and among our speakers on various different aspects: gender, ethnicity, affiliations, and career stages. We ensure that both our organizing team and speakers are inclusive of minority genders and different geographic and cultural backgrounds.
+We are represented by both our female speakers and organizers. Our organizing team and speakers come from diverse cultural backgrounds including North America, Europe, and Asia. Additionally, we also include a wide range of academic institutions and industrial institutions.
+Moreover, our commitment to diversity encompasses a wide spectrum of career stages among our organizers and speakers, ranging from Ph.D. students, postdocs, junior faculties, to established professors.
+%
+The speakers and organizers have worked in different aspects of the workshop topic, ranging from visual perception, spatial reasoning, world modeling, to real-world embodied agents and systems, bringing different perspectives to spark inspiring discussions. We believe that a diverse team of organizers and speakers is essential not only for the broadening of ideas but also for the enrichment of our collective experiences.
+
+\clearpage
+
+% ---- Bibliography ----
+%
+% BibTeX users should specify bibliography style 'splncs04'.
+% References will then be sorted and formatted in the correct style.
+%
+\bibliographystyle{splncs04}
+\bibliography{egbib}
+\end{document}
