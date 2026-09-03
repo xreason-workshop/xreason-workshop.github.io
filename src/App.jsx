@@ -517,6 +517,17 @@ tbody tr:nth-child(even) {
   background: #f8fafc;
 }
 
+.schedule-wrap td a {
+  color: var(--teal);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 700;
+}
+
+.schedule-wrap td a:hover {
+  color: var(--coral);
+}
+
 .person-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -791,13 +802,14 @@ const dates = [
 ];
 
 const openReviewSubmissionUrl =
-  'https://openreview.net/group?id=thecvf.com/ECCV/2026/Workshop/X-Reason&referrer=%5BHomepage%5D(%2F)#tab-recent-activity';
+  'https://openreview.net/group?id=thecvf.com/ECCV/2026/Workshop/X-Reason#tab-accept-oral';
 
 const schedule = [
   ['08:50', '09:00', 'Opening remarks'],
   ['09:00', '09:40', 'Keynote: Prof. Sha Yi'],
   ['09:40', '10:00', 'Oral session 1'],
-  ['10:00', '11:00', 'AM break'],
+  ['10:00', '10:20', 'AM break'],
+  ['10:20', '11:00', 'Keynote: Prof. Vincent Sitzmann'],
   ['11:00', '11:40', 'Keynote: Dr. Fu-En Yang'],
   ['11:40', '12:00', 'Oral session 2'],
   ['12:00', '13:45', 'Lunch'],
@@ -805,10 +817,9 @@ const schedule = [
   ['14:20', '15:00', 'Keynote: Prof. Serge Belongie'],
   ['15:00', '15:40', 'Keynote: Prof. Bharath Hariharan'],
   ['15:40', '16:00', 'PM break'],
-  ['16:00', '16:40', 'Keynote: Prof. Vincent Sitzmann'],
-  ['16:40', '17:20', 'Keynote: Dr. Boyi Li'],
-  ['17:20', '18:00', 'Keynote: Dr. Jiajun Wu'],
-  ['18:00', '18:10', 'Closing remarks'],
+  ['16:00', '16:40', 'Keynote: Dr. Boyi Li'],
+  ['16:40', '17:20', 'Keynote: Dr. Jiajun Wu'],
+  ['17:20', '17:30', 'Closing remarks'],
 ];
 
 const speakers = [
@@ -907,8 +918,8 @@ function App() {
                 reasoning, embodied decision-making, active exploration, and real-world action.
               </p>
               <div className="hero-actions" aria-label="Page shortcuts">
-                <a className="button primary" href="#cfp">Call for Papers</a>
-                <a className="button secondary" href="#program">Tentative Program</a>
+                <a className="button secondary" href="#program">Program</a>
+                <a className="button primary" href="#cfp">Accepted Papers</a>
               </div>
             </div>
           </div>
@@ -1000,14 +1011,14 @@ function App() {
                 are not planned for archival proceedings.
               </p>
               <div className="submission-box">
-                <strong>Submission site</strong>
+                <strong>Accepted papers</strong>
                 <a
                   className="button primary"
                   href={openReviewSubmissionUrl}
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Submit on OpenReview
+                  View on Openreview
                 </a>
               </div>
             </div>
@@ -1031,13 +1042,29 @@ function App() {
                   </tr>
                 </thead>
                 <tbody>
-                  {schedule.map(([start, end, event]) => (
-                    <tr key={`${start}-${event}`}>
-                      <td>{start}</td>
-                      <td>{end}</td>
-                      <td>{event}</td>
-                    </tr>
-                  ))}
+                  {schedule.map(([start, end, event]) => {
+                    const speaker = speakers.find(([name]) => event.includes(name));
+                    const [, , , url] = speaker ?? [];
+                    const colonIndex = event.indexOf(':');
+                    const label = url && colonIndex !== -1 ? event.slice(0, colonIndex + 1) + ' ' : '';
+                    const linkText = url && colonIndex !== -1 ? event.slice(colonIndex + 1).trim() : event;
+                    return (
+                      <tr key={`${start}-${event}`}>
+                        <td>{start}</td>
+                        <td>{end}</td>
+                        <td>
+                          {label}
+                          {url ? (
+                            <a href={url} target="_blank" rel="noreferrer">
+                              {linkText}
+                            </a>
+                          ) : (
+                            linkText
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
